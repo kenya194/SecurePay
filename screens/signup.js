@@ -1,276 +1,225 @@
-// import { StyleSheet, Text, View, ImageBackground, Image, TouchableOpacity, TextInput } from 'react-native'
-// import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
-// import { StatusBar } from 'expo-status-bar';
-// // import { useNavigation } from '@react-navigation/native';
-
-// import React, { useState } from 'react'
-// import { createUserWithEmailAndPassword } from 'firebase/auth';
-// import { auth } from '../config/firebase';
-
-// export default function SignUp({navigation}) {
-//     const [email, setEmail] = useState();
-//     const [password, setPassword] = useState();
-
-//     const handleSubmit = async ()=>{
-//       if (email && password){
-//         try{
-//             await createUserWithEmailAndPassword(auth, email, password)
-//         }catch(err){
-//           console.log('got an error message: ', err.message);
-//         }
-//       }
-//     }
-
-//   return (
-//     <View style= {styles.background}>
-//       <SafeAreaView style={styles.safearea}>
-        
-//         <View style= {styles.backicon}>
-//         <TouchableOpacity onPress={() => navigation.navigate('login')}>
-//           <Image style= {styles.icons} source={require("../assets/back.png")}/>
-//         </TouchableOpacity>
-//         </View>
-
-//         <View style={styles.picBackground}>
-//           <Image style={styles.iconImage} source={require("../assets/rb_1074.png")} />
-//         </View>
-//       </SafeAreaView>
-
-//       <View style={styles.lowerBackground}>
-//         <View style={styles.form}>
-//           <Text style={styles.txt}> First Name</Text>
-//           <TextInput style={styles.txtInput}  placeholder='Enter First Name'/>
-//         </View>
-//         <View style={styles.form}>
-//           <Text style={styles.txt}>Last Name</Text>
-//           <TextInput style={styles.txtInput} placeholder='Enter Last Name'/>
-//         </View>
-//         <View style={styles.form}>
-//           <Text style={styles.txt}>Email Address</Text>
-//           <TextInput style={styles.txtInput} value={email}
-//            onChangeText={value => setEmail(value)}
-//             placeholder='Enter Email'/>
-            
-//         </View>
-//         <View style={styles.form}>
-//           <Text style={styles.txt}>Enter Password</Text>
-//           <TextInput style={styles.txtInput} secureTextEntry value={password}
-//            onChangeText={value => setPassword(value)} 
-//            placeholder='Enter Password'/>
-//         </View>
-//         <View style={styles.form}>
-//           <Text style={styles.txt}>Confirm Password</Text>
-//           <TextInput style={styles.txtInput} secureTextEntry value={password} 
-//           onChangeText={value => setPassword(value)} 
-//           placeholder='Enter Password'/>
-//         </View>
-
-//         <View style={styles.centering}>
-//           <TouchableOpacity onPress={handleSubmit}>
-//           <View style={styles.buttons}>
-//               <Text style={styles.button_Txt}> Create Account</Text>
-//           </View>  
-//           </TouchableOpacity>
-//           <Text style={styles.OrTxt}>OR</Text>
-//         </View>
-
-//         <View style={styles.iconBackground}>
-//           <TouchableOpacity>
-//           <Image style={styles.iconPics} source={require("../assets/google_2504914.png")} />
-//           </TouchableOpacity>
-//           <TouchableOpacity>
-//           <Image style={styles.iconPics} source={require("../assets/apple_831329.png")} />
-//           </TouchableOpacity>
-//           <TouchableOpacity>
-//           <Image style={styles.iconPics} source={require("../assets/facebook_5968764.png")} />
-//           </TouchableOpacity>
-//         </View>
-
-//       </View>
-//     </View>
-//   )
-// }
-
-// const styles = StyleSheet.create({
-//   background:{
-//     flex:1,
-//     backgroundColor:"#FEFAE0",
-//   },
-
-//   backicon:{
-//     marginTop:0,
-//     width:'20%',
-//   },
-//   icons:{
-//     height:40,
-//     width:40,
-//     marginTop:15,
-//     marginLeft:20,
-//   },
-//   picBackground:{
-//     justifyContent: "center",
-//     alignItems:'center',
-//   },
-
-//   iconImage:{
-//     height:200,
-//     width:200,
-//     alignItems:'center',
-//   },
-
-//   lowerBackground:{
-//     flex:1,
-//     backgroundColor:"white",
-//     borderTopLeftRadius:50,
-//     borderTopRightRadius:50,
-//   },
-//   form:{
-//     marginTop:10,
-//     marginLeft:30,
-//   },
-//   txt:{
-//     fontSize:18,
-//     marginLeft:15,
-//   },
-//   txtInput:{
-//     backgroundColor:'#D8D8D8',
-//     padding:10, 
-//     borderRadius:15,
-//     fontSize:16,
-//     width:362,
-//     marginTop:4,
-//   },
-  
-//   centering:{
-//     justifyContent: "center",
-//     alignItems:'center',
-//   },
-//   buttons:{
-//     marginTop:20,
-//     backgroundColor:'#F3C623',
-//     paddingTop:8,
-//     paddingBottom:8,
-//     paddingLeft:80,
-//     paddingRight:80,
-//     borderRadius:50,
-//   },
-//   button_Txt:{
-//     fontSize:18,
-//   },
-//   OrTxt:{
-//     marginTop:20,
-//     fontWeight:'bold',
-//   },
-//   iconBackground:{
-//     marginTop:20,
-//     flexDirection:'row',
-//     alignItems:'center',
-//     justifyContent:'space-evenly',
-//   },
-//   iconPics:{
-//     width:50,
-//     height:50,
-//   },
-//   create_Txt:{
-//     fontSize:18,
-//   },
-//   create:{
-//     marginLeft:5,
-//     fontSize:20,
-//     color:"#F95454",
-//   },
-//   error: {
-//     color: 'red',
-//     fontSize: 12,
-//     marginBottom: 8,
-//   },
-// })
-import { StyleSheet, Text, View, ImageBackground, Image, TouchableOpacity, TextInput, Dimensions } from 'react-native';
-import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import React, { useState, useRef, useEffect } from 'react';
+import { 
+  StyleSheet, 
+  View, 
+  Text, 
+  Image, 
+  TouchableOpacity, 
+  Dimensions,
+  Animated,
+  ScrollView,
+  Alert
+} from 'react-native';
+import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from 'expo-status-bar';
-import React, { useState } from 'react';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../config/firebase';
+import { colors, typography, spacing, layout } from '../config/theme';
+import { Input } from '../components/common/Input';
+import { Button } from '../components/common/Button';
+import { fadeIn, slideIn, pressAnimation } from '../utils/animations';
 
 const { width, height } = Dimensions.get('window');
 
-export default function SignUp({ navigation }) {
+export default function SignupScreen({ navigation }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState({});
+
+  // Animation values
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+  const slideAnim = useRef(new Animated.Value(50)).current;
+  const logoScale = useRef(new Animated.Value(1)).current;
+
+  useEffect(() => {
+    // Start animations when component mounts
+    Animated.parallel([
+      fadeIn(fadeAnim),
+      slideIn(slideAnim),
+      Animated.sequence([
+        Animated.timing(logoScale, {
+          toValue: 1.1,
+          duration: 500,
+          useNativeDriver: true,
+        }),
+        Animated.timing(logoScale, {
+          toValue: 1,
+          duration: 500,
+          useNativeDriver: true,
+        }),
+      ]),
+    ]).start();
+  }, []);
+
+  const validateForm = () => {
+    const newErrors = {};
+
+    if (!email) {
+      newErrors.email = 'Email is required';
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
+      newErrors.email = 'Please enter a valid email';
+    }
+
+    if (!password) {
+      newErrors.password = 'Password is required';
+    } else if (password.length < 6) {
+      newErrors.password = 'Password must be at least 6 characters';
+    }
+
+    if (!confirmPassword) {
+      newErrors.confirmPassword = 'Please confirm your password';
+    } else if (confirmPassword !== password) {
+      newErrors.confirmPassword = 'Passwords do not match';
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
     const handleSubmit = async () => {
-        if (email && password) {
+    if (!validateForm()) return;
+
+    setLoading(true);
             try {
                 await createUserWithEmailAndPassword(auth, email, password);
+      // Navigation will be handled by the auth state listener
             } catch (err) {
-                console.log('got an error message: ', err.message);
-            }
-        }
-    };
+      let errorMessage = 'Failed to create account';
+      if (err.code === 'auth/email-already-in-use') {
+        errorMessage = 'An account with this email already exists';
+      } else if (err.code === 'auth/invalid-email') {
+        errorMessage = 'Invalid email address';
+      }
+      Alert.alert('Error', errorMessage);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleSocialSignup = (provider) => {
+    // Implement social signup functionality
+    Alert.alert('Coming Soon', `${provider} signup will be available soon!`);
+  };
 
     return (
         <View style={styles.background}>
+      <StatusBar style="dark" />
             <SafeAreaView style={styles.safearea}>
-                <View style={styles.backicon}>
-                    <TouchableOpacity onPress={() => navigation.navigate('login')}>
-                        <Image style={styles.icons} source={require("../assets/back.png")} />
+        <ScrollView 
+          contentContainerStyle={styles.scrollContainer}
+          showsVerticalScrollIndicator={false}
+        >
+          <View style={styles.header}>
+            <TouchableOpacity 
+              onPress={() => navigation.navigate('welcomescreen')}
+              style={styles.backButton}
+            >
+              <Image style={styles.backIcon} source={require("../assets/back.png")} />
                     </TouchableOpacity>
                 </View>
 
-                <View style={styles.picBackground}>
-                    <Image style={styles.iconImage} source={require("../assets/rb_1074.png")} />
-                </View>
-            </SafeAreaView>
+          <Animated.View style={[styles.logoContainer, { transform: [{ scale: logoScale }] }]}>
+            <Image 
+              style={styles.logoImage} 
+              source={require("../assets/rb_1074.png")} 
+              resizeMode="contain"
+            />
+          </Animated.View>
 
-            <View style={styles.lowerBackground}>
+          <Animated.View 
+            style={[
+              styles.formContainer,
+              {
+                opacity: fadeAnim,
+                transform: [{ translateY: slideAnim }]
+              }
+            ]}
+          >
+            <Text style={styles.headerText}>Create Account</Text>
+            <Text style={styles.subheaderText}>Sign up to get started</Text>
+
                 <View style={styles.form}>
-                    <Text style={styles.txt}>First Name</Text>
-                    <TextInput style={styles.txtInput} placeholder='Enter First Name' />
-                </View>
-                <View style={styles.form}>
-                    <Text style={styles.txt}>Last Name</Text>
-                    <TextInput style={styles.txtInput} placeholder='Enter Last Name' />
-                </View>
-                <View style={styles.form}>
-                    <Text style={styles.txt}>Email Address</Text>
-                    <TextInput style={styles.txtInput} value={email}
-                        onChangeText={value => setEmail(value)}
-                        placeholder='Enter Email' />
-                </View>
-                <View style={styles.form}>
-                    <Text style={styles.txt}>Enter Password</Text>
-                    <TextInput style={styles.txtInput} secureTextEntry value={password}
-                        onChangeText={value => setPassword(value)}
-                        placeholder='Enter Password' />
-                </View>
-                <View style={styles.form}>
-                    <Text style={styles.txt}>Confirm Password</Text>
-                    <TextInput style={styles.txtInput} secureTextEntry value={password}
-                        onChangeText={value => setPassword(value)}
-                        placeholder='Enter Password' />
+              <Input
+                label="Email Address"
+                value={email}
+                onChangeText={setEmail}
+                placeholder="Enter your email"
+                keyboardType="email-address"
+                autoCapitalize="none"
+                error={errors.email}
+              />
+
+              <Input
+                label="Password"
+                value={password}
+                onChangeText={setPassword}
+                placeholder="Enter your password"
+                secureTextEntry
+                autoCapitalize="none"
+                error={errors.password}
+              />
+
+              <Input
+                label="Confirm Password"
+                value={confirmPassword}
+                onChangeText={setConfirmPassword}
+                placeholder="Confirm your password"
+                secureTextEntry
+                autoCapitalize="none"
+                error={errors.confirmPassword}
+              />
+
+              <Button
+                title="Sign Up"
+                onPress={handleSubmit}
+                loading={loading}
+                style={styles.signupButton}
+              />
+
+              <Text style={styles.orText}>OR</Text>
+
+              <View style={styles.socialButtons}>
+                <TouchableOpacity 
+                  onPress={() => handleSocialSignup('Google')}
+                  style={styles.socialButton}
+                >
+                  <Image 
+                    style={styles.socialIcon} 
+                    source={require("../assets/google_2504914.png")} 
+                  />
+                </TouchableOpacity>
+                <TouchableOpacity 
+                  onPress={() => handleSocialSignup('Apple')}
+                  style={styles.socialButton}
+                >
+                  <Image 
+                    style={styles.socialIcon} 
+                    source={require("../assets/apple_831329.png")} 
+                  />
+                </TouchableOpacity>
+                <TouchableOpacity 
+                  onPress={() => handleSocialSignup('Facebook')}
+                  style={styles.socialButton}
+                >
+                  <Image 
+                    style={styles.socialIcon} 
+                    source={require("../assets/facebook_5968764.png")} 
+                  />
+                    </TouchableOpacity>
                 </View>
 
-                <View style={styles.centering}>
-                    <TouchableOpacity onPress={handleSubmit}>
-                        <View style={styles.buttons}>
-                            <Text style={styles.button_Txt}>Create Account</Text>
-                        </View>
-                    </TouchableOpacity>
-                    <Text style={styles.OrTxt}>OR</Text>
-                </View>
-
-                <View style={styles.iconBackground}>
-                    <TouchableOpacity>
-                        <Image style={styles.iconPics} source={require("../assets/google_2504914.png")} />
-                    </TouchableOpacity>
-                    <TouchableOpacity>
-                        <Image style={styles.iconPics} source={require("../assets/apple_831329.png")} />
-                    </TouchableOpacity>
-                    <TouchableOpacity>
-                        <Image style={styles.iconPics} source={require("../assets/facebook_5968764.png")} />
+              <View style={styles.loginContainer}>
+                <Text style={styles.loginText}>Already have an account?</Text>
+                <TouchableOpacity onPress={() => navigation.navigate('login')}>
+                  <Text style={styles.loginLink}>Login</Text>
                     </TouchableOpacity>
                 </View>
             </View>
+          </Animated.View>
+        </ScrollView>
+      </SafeAreaView>
         </View>
     );
 }
@@ -278,82 +227,91 @@ export default function SignUp({ navigation }) {
 const styles = StyleSheet.create({
     background: {
         flex: 1,
-        backgroundColor: "#FEFAE0",
+    backgroundColor: colors.background,
     },
     safearea: {
         flex: 1,
     },
-    backicon: {
-        marginTop: height * 0.02,
-        width: '20%',
-    },
-    icons: {
+  scrollContainer: {
+    flexGrow: 1,
+  },
+  header: {
+    paddingHorizontal: spacing.md,
+    paddingTop: spacing.sm,
+  },
+  backButton: {
+    width: width * 0.1,
         height: width * 0.1,
-        width: width * 0.1,
-        marginTop: height * 0.02,
-        marginLeft: width * 0.05,
-    },
-    picBackground: {
-        justifyContent: "center",
+    justifyContent: 'center',
+  },
+  backIcon: {
+    width: width * 0.08,
+    height: width * 0.08,
+  },
+  logoContainer: {
         alignItems: 'center',
-        marginTop: height * 0.02,
-    },
-    iconImage: {
-        height: height * 0.2,
-        width: width * 0.5,
-        resizeMode: 'contain',
-    },
-    lowerBackground: {
+    marginVertical: spacing.xl,
+  },
+  logoImage: {
+    width: width * 0.4,
+    height: width * 0.4,
+  },
+  formContainer: {
         flex: 1,
-        backgroundColor: "white",
+    backgroundColor: colors.white,
         borderTopLeftRadius: width * 0.1,
         borderTopRightRadius: width * 0.1,
-        paddingTop: height * 0.03,
+    padding: spacing.lg,
+  },
+  headerText: {
+    ...typography.h2,
+    textAlign: 'center',
+    marginBottom: spacing.xs,
+  },
+  subheaderText: {
+    ...typography.body,
+    textAlign: 'center',
+    color: colors.text,
+    opacity: 0.7,
+    marginBottom: spacing.lg,
     },
     form: {
-        marginTop: height * 0.02,
-        marginLeft: width * 0.05,
-    },
-    txt: {
-        fontSize: width * 0.04,
-        marginLeft: width * 0.03,
-    },
-    txtInput: {
-        backgroundColor: '#D8D8D8',
-        padding: width * 0.03,
-        borderRadius: width * 0.04,
-        fontSize: width * 0.04,
-        width: width * 0.9,
-        marginTop: height * 0.01,
-    },
-    centering: {
-        justifyContent: "center",
-        alignItems: 'center',
-        marginTop: height * 0.03,
-    },
-    buttons: {
-        backgroundColor: '#F3C623',
-        paddingVertical: height * 0.015,
-        paddingHorizontal: width * 0.2,
-        borderRadius: width * 0.1,
-    },
-    button_Txt: {
-        fontSize: width * 0.04,
+    marginTop: spacing.md,
+  },
+  signupButton: {
+    marginBottom: spacing.md,
+  },
+  orText: {
+    ...typography.body,
         textAlign: 'center',
-    },
-    OrTxt: {
-        marginTop: height * 0.02,
-        fontWeight: 'bold',
-        fontSize: width * 0.04,
-    },
-    iconBackground: {
-        marginTop: height * 0.03,
+    color: colors.text,
+    marginVertical: spacing.md,
+  },
+  socialButtons: {
         flexDirection: 'row',
-        alignItems: 'center',
         justifyContent: 'space-evenly',
+    marginBottom: spacing.lg,
+  },
+  socialButton: {
+    padding: spacing.sm,
     },
-    iconPics: {
+  socialIcon: {
         width: width * 0.12,
         height: width * 0.12,
     },
+  loginContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  loginText: {
+    ...typography.body,
+    color: colors.text,
+  },
+  loginLink: {
+    ...typography.body,
+    color: colors.error,
+    marginLeft: spacing.xs,
+    fontWeight: '600',
+  },
 });
